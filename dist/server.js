@@ -5776,6 +5776,12 @@ var require_client = __commonJS({
       AnyNull: objectEnumValues2.classes.AnyNull
     };
     var path = require("path");
+    exports2.Prisma.TransactionIsolationLevel = makeStrictEnum2({
+      ReadUncommitted: "ReadUncommitted",
+      ReadCommitted: "ReadCommitted",
+      RepeatableRead: "RepeatableRead",
+      Serializable: "Serializable"
+    });
     exports2.Prisma.CustomerScalarFieldEnum = {
       id: "id",
       name: "name",
@@ -5791,6 +5797,10 @@ var require_client = __commonJS({
     exports2.Prisma.QueryMode = {
       default: "default",
       insensitive: "insensitive"
+    };
+    exports2.Prisma.NullsOrder = {
+      first: "first",
+      last: "last"
     };
     exports2.Prisma.ModelName = {
       Customer: "Customer"
@@ -5821,7 +5831,7 @@ var require_client = __commonJS({
         "isCustomOutput": true
       },
       "relativeEnvPaths": {
-        "rootEnvPath": null,
+        "rootEnvPath": "../../../../.env",
         "schemaEnvPath": "../../../../.env"
       },
       "relativePath": "../../..",
@@ -5830,7 +5840,7 @@ var require_client = __commonJS({
       "datasourceNames": [
         "db"
       ],
-      "activeProvider": "mongodb",
+      "activeProvider": "postgresql",
       "postinstall": false,
       "inlineDatasources": {
         "db": {
@@ -5840,8 +5850,8 @@ var require_client = __commonJS({
           }
         }
       },
-      "inlineSchema": '// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = "prisma-client-js"\n  output   = "node_modules/.prisma/client"\n}\n\ndatasource db {\n  provider = "mongodb"\n  url      = env("DATABASE_URL")\n}\n\nmodel Customer {\n  id        String    @id @default(auto()) @map("_id") @db.ObjectId\n  name      String\n  email     String\n  status    Boolean\n  createdAt DateTime? @default(now())\n  updatedAt DateTime? @default(now())\n\n  @@map("customers")\n}\n',
-      "inlineSchemaHash": "4a8b8774ae42cd681a5237604872984820f8e5c83c9b9f8d9a3764e86abb2b20",
+      "inlineSchema": '// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = "prisma-client-js"\n  output   = "node_modules/.prisma/client"\n}\n\ndatasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n\nmodel Customer {\n  id        String    @id @default(uuid())\n  name      String\n  email     String\n  status    Boolean\n  createdAt DateTime? @default(now())\n  updatedAt DateTime? @default(now())\n\n  @@map("customers")\n}\n',
+      "inlineSchemaHash": "449e659cbdc6be738bb316ce03cdd8877e7753398912c745124b6af727ba13cb",
       "copyEngine": true
     };
     var fs = require("fs");
@@ -5857,7 +5867,7 @@ var require_client = __commonJS({
       config.dirname = path.join(process.cwd(), alternativePath);
       config.isBundled = true;
     }
-    config.runtimeDataModel = JSON.parse('{"models":{"Customer":{"dbName":"customers","schema":null,"fields":[{"name":"id","dbName":"_id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":["ObjectId",[]],"default":{"name":"auto","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"name","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"email","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Boolean","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":null,"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":null,"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false}},"enums":{},"types":{}}');
+    config.runtimeDataModel = JSON.parse('{"models":{"Customer":{"dbName":"customers","schema":null,"fields":[{"name":"id","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":true,"isReadOnly":false,"hasDefaultValue":true,"type":"String","nativeType":null,"default":{"name":"uuid","args":[4]},"isGenerated":false,"isUpdatedAt":false},{"name":"name","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"email","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"String","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"status","kind":"scalar","isList":false,"isRequired":true,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":false,"type":"Boolean","nativeType":null,"isGenerated":false,"isUpdatedAt":false},{"name":"createdAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":null,"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false},{"name":"updatedAt","kind":"scalar","isList":false,"isRequired":false,"isUnique":false,"isId":false,"isReadOnly":false,"hasDefaultValue":true,"type":"DateTime","nativeType":null,"default":{"name":"now","args":[]},"isGenerated":false,"isUpdatedAt":false}],"primaryKey":null,"uniqueFields":[],"uniqueIndexes":[],"isGenerated":false}},"enums":{},"types":{}}');
     defineDmmfProperty2(exports2.Prisma, config.runtimeDataModel);
     config.engineWasm = void 0;
     config.compilerWasm = void 0;
